@@ -7,4 +7,10 @@
 - MySQL 
 - PHP 
 	- urlencode
+
+
+**Concepts**
+
+- Dynamic data
+- XSS and how to avoid it
 	 
