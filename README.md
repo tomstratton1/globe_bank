@@ -6,7 +6,7 @@
 - Apache 
 - MySQL 
 - PHP 
-
+- HTTP methods: GET,POST
 
 **PHP for web pages**
 
@@ -17,3 +17,9 @@
 
 **Headers and redirects**
 - Use HTTP for error codes and quick redirects (e.g. for log in pages or ecommerce)
+- Output buffering (use php.ini file and ob_start() )
+- PHP header() function
+
+**Building Forms**
+- Using POST
+- Single page submission
