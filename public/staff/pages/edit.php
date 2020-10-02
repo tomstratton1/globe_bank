@@ -3,7 +3,7 @@
 require_once('../../../private/initialize.php'); 
 
 if(!isset($_GET['id'])) {
-    redirect_to(url_for('/staff/subjects/index.php'));
+    redirect_to(url_for('/staff/pages/index.php'));
 }
 $id = $_GET['id'];
 
@@ -14,7 +14,7 @@ $visible = '';
 if(is_post_request()) {
 
 
-    // Handle form values sent by edit.php
+    // Handle form values sent by new.php
     
         $menu_name = $_POST['menu_name'] ?? '';
         $position = $_POST['position'] ?? '';
@@ -30,17 +30,17 @@ if(is_post_request()) {
 ?>
 
 
-<?php $page_title = 'Edit Subject'; ?>
+<?php $page_title = 'Edit Page'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
 <div id="content">
 
-  <a class="back-link" href="<?php echo url_for('/staff/subjects/index.php'); ?>">&laquo; Back to List</a>
+  <a class="back-link" href="<?php echo url_for('/staff/pages/index.php'); ?>">&laquo; Back to List</a>
 
-  <div class="subject edit">
-    <h1>Edit Subject</h1>
+  <div class="page edit">
+    <h1>Edit Page</h1>
 
-    <form action="<?php echo url_for('/staff/subjects/edit.php?id=' . h(u($id))); ?>" method="post">
+    <form action="<?php echo url_for('/staff/pages/edit.php?id=' . h(u($id))); ?>" method="post">
       <dl>
         <dt>Menu Name</dt>
         <dd><input type="text" name="menu_name" value=" <?php echo h($menu_name); ?>" /></dd>
@@ -62,7 +62,7 @@ if(is_post_request()) {
         </dd>
       </dl>
       <div id="operations">
-        <input type="submit" value="Edit Subject" />
+        <input type="submit" value="Edit Page" />
       </div>
     </form>
 
