@@ -22,5 +22,11 @@
 
 
     require_once('functions.php');
+    require_once('database.php');
+    require_once('query_functions.php');
+
+    $db = db_connect(); //Every page with initialize 
+                        // will log in to server
+
     
 ?>
