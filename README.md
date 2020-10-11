@@ -23,3 +23,14 @@
 **Building Forms**
 - Using POST
 - Single page submission
+
+**MySQL basics**
+- CRUD in MySQL
+- Relational database tables
+
+**PHP and MySQL**
+- Connect to MySQL with PHP
+- Database APIs
+- Retrieve data
+- Error handling
+- CRUD with PHP
