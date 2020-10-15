@@ -106,7 +106,7 @@ function find_all_pages_by_subject_id($subject_id){
     global $db;
 
     $sql = "SELECT * FROM pages ";
-    $sql .= "WHERE subject_id == $subject_id ";
+    $sql .= "WHERE subject_id ='" . $subject_id ."'";
     $sql .= "ORDER BY subject_id ASC, position ASC";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
@@ -130,12 +130,13 @@ function insert_page($page) {
     global $db;
 
     $sql = "INSERT INTO pages";
-    $sql .= "(menu_name, subject_id, position, visible) ";
+    $sql .= "(menu_name, subject_id, position, visible, content) ";
     $sql .= "VALUES (";
     $sql .= "'" . $page['menu_name'] . "',";
     $sql .= "'" . $page['subject_id'] . "',";
     $sql .= "'" . $page['position'] . "',";
     $sql .= "'" . $page['visible'] . "'";
+    $sql .= "'" . $page['content'] . "'";
     $sql .= ")";
     $result = mysqli_query($db, $sql);
     // for INSERT statements, $result is true/false
@@ -151,6 +152,52 @@ function insert_page($page) {
 
 
 }
+
+function update_page($page) {
+    global $db;
+
+    $sql = "UPDATE pages SET ";
+    $sql .= "menu_name='" . $page['menu_name'] . "', ";
+    $sql .= "position='" . $page['position'] . "', ";
+    $sql .= "visible='" . $page['visible'] . "' ";
+    $sql .= "subject_id='" . $page['subject_id'] . "' ";
+    $sql .= "content='" . $page['content'] . "' ";
+    $sql .= "WHERE id='" . $page['id'] . "' ";
+    $sql .= "LIMIT 1"; //fail safe so we don't update the whole db! 
+
+    $result = mysqli_query($db, $sql);
+    // For UPDATE statements, result is true or false
+    if($result) {
+      return true;
+    } else {
+      // UPDATE failed
+      echo mysqli_error($db);
+      db_disconnect($db);
+      exit;
+    }
+
+}
+
+function delete_page($id) {
+    global $db;
+
+    $sql = "DELETE FROM pages ";
+    $sql .= "WHERE id='" . $id . "' ";
+    $sql .= "LIMIT 1";
+   
+    $result = mysqli_query($db, $sql);
+   
+   // For DELETE statements the result is true or false
+       if($result){
+           return true;
+       } else {
+           //DELETE failed
+           echo mysqli_error($db);
+           db_disconnect($db);
+           exit;
+       }
+}
+
 
 
 ?>

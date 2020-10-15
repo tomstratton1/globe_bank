@@ -13,6 +13,7 @@ if(is_post_request()) {
     $page['menu_name'] = $_POST['menu_name'] ?? '';
     $page['position'] = $_POST['position'] ?? '';
     $page['visible'] = $_POST['visible'] ?? '';
+    $page['content'] = $_POST['content'] ?? '';
     $page['subject_id'] = $_POST['subject_id'] ?? '';
 
     $result = insert_page($page);
@@ -24,15 +25,22 @@ if(is_post_request()) {
 
  //generate form to be filled 
 
+
+    
+    $page = [];
+    $page['menu_name'] = '';
+    $page['position'] = '';
+    $page['visible'] = '';
+    $page['content'] = '';
+    $page['subject_id'] = '';
+
+
     $page_set = find_all_pages();
     $page_count = mysqli_num_rows($page_set) + 1 ;
     mysqli_free_result($page_set);
-    
-    $page = [];
-    $page['position'] = $page_count; //default value
+
 
 }
-
 
 ?>
 
@@ -52,17 +60,34 @@ if(is_post_request()) {
 
     <form action="<?php echo url_for('/staff/pages/new.php'); ?>" method="post">
       <dl>
+        <dt>Subject</dt>
+        <dd>
+        <select name="subject_id" >
+         <?php
+         $subject_set= find_all_subjects();
+         while($subject = mysqli_fetch_assoc($subject_set)){
+           echo "<option value\"" . h($subject['id']) . "\"";
+           if($page["subject_id"] == $subject['id'])
+           {
+             echo " selected";
+           } 
+           echo ">" . h($subject['menu_name']) . "</option>";
+         }
+         mysqli_free_result($subject_set);
+         ?>
+         </select>
+        </dd>
+      </dl>
+
+
+      <dl>
         <dt>Menu Name</dt>
         <dd><input type="text" name="menu_name" value=""/></dd>
       </dl>
       <dl>
-        <dt>Subject ID</dt>
-        <dd><input type="number" name="subject_id" min="1" value=""/></dd>
-      </dl>
-      <dl>
         <dt>Position</dt>
         <dd>
-          <select name="position">
+        <select name="position">
           <?php
             for ($i=1; $i <= $page_count; $i++) {
               echo "<option value\"{$i}\"";
@@ -83,8 +108,13 @@ if(is_post_request()) {
           <input type="checkbox" name="visible" value="1" />
         </dd>
       </dl>
+      <dl>
+        <dt>Content</dt>
+        <dd><input type="text" name="content" value=""/></dd>
+      </dl>
+      <dl>
       <div id="operations">
-        <input type="submit" value="Create Subject" />
+        <input type="submit" value="Create Page" />
       </div>
     </form>
 

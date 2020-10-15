@@ -19,17 +19,24 @@ require_once('../../../private/initialize.php');
  
     <div class="page show">
 
+    
+    
         <h1>Page: <?php echo h($page['menu_name']); ?></h1>
 
         <div class="attributes">
+        <?php $subject = find_subject_by_id($page['subject_id']); ?>
+        <dl>
+        <dt>Subject</dt>
+        <dd><?php echo h($subject['menu_name']); ?></dd>
+        </dl>    
         <dl>
         <dt>Menu Name</dt>
         <dd><?php echo h($page['menu_name']); ?></dd>
         </dl>
-        <dl>
+        <!-- <dl>
         <dt>Subject ID</dt>
         <dd><?php echo h($page['subject_id']); ?></dd>
-        </dl>
+        </dl> -->
         <dl>
         <dt>Position</dt>
         <dd><?php echo h($page['position']); ?></dd>
@@ -37,6 +44,10 @@ require_once('../../../private/initialize.php');
         <dl>
         <dt>Visible</dt>
         <dd><?php echo $page['visible'] == '1' ? 'true' : 'false'; ?></dd>
+        </dl>
+        <dl>
+        <dt>Content</dt>
+        <dd><?php echo h($page['content']); ?></dd>
         </dl>
         </div>
 
