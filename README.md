@@ -37,3 +37,8 @@
 
 **Validating data with PHP**
 - Presence, string length, type, inclusion in / exclusion from a set, format, uniqueness etc.  
+- Advantage of one page submission for validation and error displays
+- Suprisingly true comparisons in PHP (type juggling) e.g. 3 == "3 dogs", 100 == "1e2" etc.
+- Use exactly equals === to avoid type juggling
+- Suprisingly empty "", 0, "0", null, false, array().
+- Regular expressions can overlook rare cases

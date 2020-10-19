@@ -28,6 +28,6 @@
 
     $db = db_connect(); //Every page with initialize 
                         // will log in to server
-
+    $errors = [];
     
 ?>
