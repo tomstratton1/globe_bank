@@ -34,3 +34,6 @@
 - Retrieve data
 - Error handling
 - CRUD with PHP
+
+**Validating data with PHP**
+- Presence, string length, type, inclusion in / exclusion from a set, format, uniqueness etc.  
