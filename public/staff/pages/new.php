@@ -17,30 +17,33 @@ if(is_post_request()) {
     $page['subject_id'] = $_POST['subject_id'] ?? '';
 
     $result = insert_page($page);
-    $new_id = mysqli_insert_id($db);
-    redirect_to(url_for('/staff/pages/show.php?id=' . $new_id)); // redirect to new page
+
+    if($result === true){   
+      $new_id = mysqli_insert_id($db);
+      redirect_to(url_for('/staff/pages/show.php?id=' . $new_id));
+  } else{
+      $errors = $result;
+  }
 
 
 } else{
 
  //generate form to be filled 
 
-
-    
-    $page = [];
-    $page['menu_name'] = '';
-    $page['position'] = '';
-    $page['visible'] = '';
-    $page['content'] = '';
-    $page['subject_id'] = '';
-
-
-    $page_set = find_all_pages();
-    $page_count = mysqli_num_rows($page_set) + 1 ;
-    mysqli_free_result($page_set);
-
+ $page = [];
+ $page['menu_name'] = '';
+ $page['position'] = '';
+ $page['visible'] = '';
+ $page['content'] = '';
+ $page['subject_id'] = '';
 
 }
+
+$page_set = find_all_pages();
+$page_count = mysqli_num_rows($page_set) + 1 ;
+mysqli_free_result($page_set);
+
+
 
 ?>
 
@@ -58,24 +61,25 @@ if(is_post_request()) {
   <div class="page new">
     <h1>Create Page</h1>
 
+    <?php echo display_errors($errors); ?>
+
     <form action="<?php echo url_for('/staff/pages/new.php'); ?>" method="post">
       <dl>
         <dt>Subject</dt>
         <dd>
-        <select name="subject_id" >
-         <?php
-         $subject_set= find_all_subjects();
-         while($subject = mysqli_fetch_assoc($subject_set)){
-           echo "<option value\"" . h($subject['id']) . "\"";
-           if($page["subject_id"] == $subject['id'])
-           {
-             echo " selected";
-           } 
-           echo ">" . h($subject['menu_name']) . "</option>";
-         }
-         mysqli_free_result($subject_set);
-         ?>
-         </select>
+         <select name="subject_id">
+          <?php
+          $subject_set = find_all_subjects();
+          while($subject = mysqli_fetch_assoc($subject_set)) {
+            echo "<option value=\"" . h($subject['id']) . "\"";
+            if($page["subject_id"] == $subject['id']) {
+              echo " selected";
+            }
+            echo ">" . h($subject['menu_name']) . "</option>";
+          }
+          mysqli_free_result($subject_set);
+          ?>
+          </select>
         </dd>
       </dl>
 

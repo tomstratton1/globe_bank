@@ -22,7 +22,12 @@ if(is_post_request()) {
         $page['content'] = $_POST['content'] ?? '';
 
         $result = update_page($page); //use query function
-        redirect_to(url_for('/staff/pages/show.php?id=' . $id));
+        if($result === true) {
+          redirect_to(url_for('/staff/subjects/show.php?id=' . $id));
+        } else {
+          $errors = $result;
+          // var_dump($errors); //debugging
+        }
 
     } else{
 
@@ -47,6 +52,9 @@ if(is_post_request()) {
 
   <div class="page edit">
     <h1>Edit Page</h1>
+
+
+    <?php echo display_errors($errors);?>
 
     <form action="<?php echo url_for('/staff/pages/edit.php?id=' . h(u($id))); ?>" method="post">
       <dl>

@@ -93,4 +93,15 @@
     return preg_match($email_regex, $value) === 1;
   }
 
+  function has_unique_page_menu_name($name){
+    global $db;
+
+    $sql = "SELECT * FROM pages ";
+    $sql .= "WHERE menu_name ='" . $name ."'";
+    
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    return $result == ""; 
+  }
+
 ?>
