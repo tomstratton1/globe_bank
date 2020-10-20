@@ -177,7 +177,10 @@ function validate_page($page) {
       $errors[] = "Name cannot be blank.";
     } elseif(!has_length($page['menu_name'], ['min' => 2, 'max' => 255])) {
       $errors[] = "Name must be between 2 and 255 characters.";
-    } elseif(!has_unique_page_menu_name($page['menu_name'])){
+    } 
+    
+    $current_id = $page['id'] ?? '0';
+    if(!has_unique_page_menu_name($page['menu_name'], $current_id)){
       $errors[] = "Page menu name must be unique.";
     }
 
@@ -254,8 +257,8 @@ function update_page($page) {
     $sql = "UPDATE pages SET ";
     $sql .= "menu_name='" . $page['menu_name'] . "', ";
     $sql .= "position='" . $page['position'] . "', ";
-    $sql .= "visible='" . $page['visible'] . "' ";
-    $sql .= "subject_id='" . $page['subject_id'] . "' ";
+    $sql .= "visible='" . $page['visible'] . "', ";
+    $sql .= "subject_id='" . $page['subject_id'] . "', ";
     $sql .= "content='" . $page['content'] . "' ";
     $sql .= "WHERE id='" . $page['id'] . "' ";
     $sql .= "LIMIT 1"; //fail safe so we don't update the whole db! 

@@ -23,7 +23,7 @@ if(is_post_request()) {
 
         $result = update_page($page); //use query function
         if($result === true) {
-          redirect_to(url_for('/staff/subjects/show.php?id=' . $id));
+          redirect_to(url_for('/staff/pages/show.php?id=' . $id));
         } else {
           $errors = $result;
           // var_dump($errors); //debugging
@@ -64,26 +64,25 @@ if(is_post_request()) {
       <dl>
         <dt>Subject</dt>
         <dd>
-        <select name="subject_id" >
-         <?php
-         $subject_set= find_all_subjects();
-         while($subject = mysqli_fetch_assoc($subject_set)){
-           echo "<option value\"" . h($subject['id']) . "\"";
-           if($page["subject_id"] == $subject['id'])
-           {
-             echo " selected";
-           } 
-           echo ">" . h($subject['menu_name']) . "</option>";
-         }
-         mysqli_free_result($subject_set);
-         ?>
-         </select>
+         <select name="subject_id">
+          <?php
+          $subject_set = find_all_subjects();
+          while($subject = mysqli_fetch_assoc($subject_set)) {
+            echo "<option value=\"" . h($subject['id']) . "\"";
+            if($page["subject_id"] == $subject['id']) {
+              echo " selected";
+            }
+            echo ">" . h($subject['menu_name']) . "</option>";
+          }
+          mysqli_free_result($subject_set);
+          ?>
+          </select>
         </dd>
       </dl>
       <dl>
         <dt>Position</dt>
         <dd>
-          <select name="position">
+        <select name="position">
           <?php
             for ($i=1; $i <= $page_count; $i++) {
               echo "<option value\"{$i}\"";
@@ -106,9 +105,10 @@ if(is_post_request()) {
       </dl>
       <dl>
         <dt>Content</dt>
-        <dd><input type="text" name="content" value="<?php echo h($page['content']); ?>"/></dd>
+        <dd>
+          <textarea name="content" cols="60" rows="10"><?php echo h($page['content']); ?></textarea>
+        </dd>
       </dl>
-      <dl>
       <div id="operations">
         <input type="submit" value="Edit Page" />
       </div>

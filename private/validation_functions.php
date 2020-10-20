@@ -93,15 +93,18 @@
     return preg_match($email_regex, $value) === 1;
   }
 
-  function has_unique_page_menu_name($name){
+  function has_unique_page_menu_name($name, $current_id="0"){
     global $db;
 
     $sql = "SELECT * FROM pages ";
     $sql .= "WHERE menu_name ='" . $name ."'";
+    $sql .= "AND id != '" . $current_id . "'";
     
-    $result = mysqli_query($db, $sql);
-    confirm_result_set($result);
-    return $result == ""; 
+    
+    $result_set = mysqli_query($db, $sql);
+    confirm_result_set($result_set);
+    $page_count = mysqli_num_rows($result_set);
+    return $page_count === 0; 
   }
 
 ?>
