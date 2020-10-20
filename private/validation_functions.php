@@ -97,8 +97,8 @@
     global $db;
 
     $sql = "SELECT * FROM pages ";
-    $sql .= "WHERE menu_name ='" . $name ."'";
-    $sql .= "AND id != '" . $current_id . "'";
+    $sql .= "WHERE menu_name ='" . db_escape($db, $name) ."'";
+    $sql .= "AND id != '" . db_escape($db, $current_id) . "'";
     
     
     $result_set = mysqli_query($db, $sql);

@@ -40,5 +40,14 @@
 - Advantage of one page submission for validation and error displays
 - Suprisingly true comparisons in PHP (type juggling) e.g. 3 == "3 dogs", 100 == "1e2" etc.
 - Use exactly equals === to avoid type juggling
-- Suprisingly empty "", 0, "0", null, false, array().
+- Suprisingly empty "", 0, "0", null, false, array()
 - Regular expressions can overlook rare cases
+
+**SQL Injection and how to prevent it**
+- Any query using dynamic data is vulnerable
+- Biggest security concern for websites
+- Add backslash before single quotes
+- addslashes($string) and mysqli_real_escape_string($db, $string)
+- Use single quoted values to force attackers to circumvent data delimiters
+- Typecast can be useful too
+- Prepared statements
